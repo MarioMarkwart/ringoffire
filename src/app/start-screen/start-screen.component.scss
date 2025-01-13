@@ -6,13 +6,29 @@
     width: 100vw;
     max-width: 100%;
     background-image: url("./../../../public/assets/img/background.webp");
+    background-blend-mode: soft-light;
     background-size: cover;
     background-position: center;
+    
 
     > img{
         // border: 2px solid green;
         border-radius: 50px;
         width: 75%;
         height: 75%;
+    }
+
+    .start-button-container{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        > img:nth-child(2){
+            cursor: pointer;
+            &:hover{
+                filter:  saturate(2);
+            }
+        }
     }
 }
