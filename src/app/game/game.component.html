@@ -1,8 +1,10 @@
 <section>
   <div class="card-stack">
-    @for (item of [1, 2, 3, 4, 5]; track $index) {
-    <img [ngStyle]="{ 'left.px': $index * 5 }" src="/assets/img/cards/card_cover.png" alt="card-cover-{{ $index }}"/>
-    }
+      @for (item of [0, 1, 2, 3]; track $index) {
+          <img [ngStyle]="{ 'left.px': $index * 5 }" src="/assets/img/cards/card_cover.png" alt="card-cover-{{ $index }}"
+          />
+        }
+    <img (click)="takeCard()" class="top-card" [ngStyle]="{'left.px': 20}" src="/assets/img/cards/card_cover.png" alt="card-cover" />
+    <img (click)="takeCard()" *ngIf="pickCardAnimation" class="top-card pick-card" [ngStyle]="{'left.px': 20}" src="/assets/img/cards/clubs_1.png" alt="card-cover" />
   </div>
 </section>
-
