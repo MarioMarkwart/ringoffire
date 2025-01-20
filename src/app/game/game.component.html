@@ -5,6 +5,6 @@
           />
         }
     <img (click)="takeCard()" class="top-card" [ngStyle]="{'left.px': 20}" src="/assets/img/cards/card_cover.png" alt="card-cover" />
-    <img (click)="takeCard()" *ngIf="pickCardAnimation" class="top-card pick-card" [ngStyle]="{'left.px': 20}" src="/assets/img/cards/clubs_1.png" alt="card-cover" />
+    <img (click)="takeCard()" *ngIf="pickCardAnimation" class="top-card pick-card" [ngStyle]="{'left.px': 20}" src="/assets/img/cards/{{ currentCard }}.png" alt="card-cover" />
   </div>
 </section>

@@ -11,6 +11,7 @@ import { Game } from '../../models/game';
 
 export class GameComponent {
   pickCardAnimation = false;
+  currentCard: string | undefined = '';
   game: Game;
   // oder game!: Game; // non-null assertion operator
 
@@ -18,7 +19,7 @@ export class GameComponent {
     this.game = new Game;
   }
 
-  ngOnInit():void {
+  ngOnInit(): void {
     this.newGame();
   }
 
@@ -31,6 +32,14 @@ export class GameComponent {
 
   }
   takeCard() {
-    this.pickCardAnimation = true;
+    if (!this.pickCardAnimation) {
+      this.currentCard = this.game.stack.pop();
+      console.log(this.currentCard);
+      this.pickCardAnimation = true;
+
+      setTimeout(() => {
+        this.pickCardAnimation = false;
+      }, 1500);
+    }
   }
 }

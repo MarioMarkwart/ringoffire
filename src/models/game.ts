@@ -16,6 +16,7 @@ export class Game {
     }
 }
 
+
 /**
  * https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
  * Shuffles the given array of strings in-place using the Fisher-Yates shuffle algorithm.
