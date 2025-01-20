@@ -30,8 +30,13 @@ section {
     }
   }
 
+  .played-card{
+    left: 20px;
+    transform: scale(1) translate(250px, -250px) rotate(15deg);
+  }
+
   .pick-card {
-    animation: pickCardAnimation 1s ease-in-out forwards;
+    animation: pickCardAnimation 1000ms ease-in-out forwards;
   }
 
   @keyframes pickCardAnimation {

@@ -6,9 +6,8 @@ import { Game } from '../../models/game';
   selector: 'app-game',
   imports: [CommonModule],
   templateUrl: './game.component.html',
-  styleUrl: './game.component.scss'
+  styleUrl: './game.component.scss',
 })
-
 export class GameComponent {
   pickCardAnimation = false;
   currentCard: string | undefined = '';
@@ -16,30 +15,31 @@ export class GameComponent {
   // oder game!: Game; // non-null assertion operator
 
   constructor() {
-    this.game = new Game;
+    this.game = new Game();
   }
 
   ngOnInit(): void {
     this.newGame();
   }
 
-
   @Output() public cardPicked = new EventEmitter<boolean>();
 
   newGame() {
-    this.game = new Game;
+    this.game = new Game();
     console.log(this.game);
-
   }
+
   takeCard() {
     if (!this.pickCardAnimation) {
       this.currentCard = this.game.stack.pop();
-      console.log(this.currentCard);
       this.pickCardAnimation = true;
 
       setTimeout(() => {
+        if (this.currentCard) {
+          this.game.playedCards.push(this.currentCard);
+        }
         this.pickCardAnimation = false;
-      }, 1500);
+      }, 1000);
     }
   }
 }
