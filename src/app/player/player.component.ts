@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-player',
@@ -8,7 +8,9 @@ import { Component } from '@angular/core';
 })
 export class PlayerComponent {
 
-  avatarNumber: number = this.getRandomInt(1, 6);
+  @Input() name: string = '';
+
+  avatarNumber: number = this.getRandomInt(0, 22);
   getRandomInt(min: number, max: number) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }

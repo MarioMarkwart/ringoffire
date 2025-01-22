@@ -18,9 +18,7 @@ export class GameComponent {
 
   constructor() {
     this.game = new Game();
-    
   }
-  
 
   ngOnInit(): void {
     this.newGame();
