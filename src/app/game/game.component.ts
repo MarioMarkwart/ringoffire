@@ -9,6 +9,7 @@ import { PlayerComponent } from "../player/player.component";
   templateUrl: './game.component.html',
   styleUrl: './game.component.scss',
 })
+
 export class GameComponent {
   pickCardAnimation = false;
   currentCard: string | undefined = '';
@@ -17,7 +18,9 @@ export class GameComponent {
 
   constructor() {
     this.game = new Game();
+    
   }
+  
 
   ngOnInit(): void {
     this.newGame();
