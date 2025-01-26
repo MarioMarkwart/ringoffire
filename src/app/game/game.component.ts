@@ -3,6 +3,8 @@ import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 import { Game } from '../../models/game';
 import { PlayerComponent } from "../player/player.component";
 import { MaterialModule } from '../shared/material.module';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
 
 @Component({
   selector: 'app-game',
@@ -17,7 +19,7 @@ export class GameComponent {
   game: Game;
   // oder game!: Game; // non-null assertion operator
 
-  constructor() {
+  constructor(public dialog: MatDialog) {
     this.game = new Game();
   }
 
@@ -44,5 +46,20 @@ export class GameComponent {
         this.pickCardAnimation = false;
       }, 1000);
     }
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(DialogAddPlayerComponent, 
+    //   {
+    //   data: {name: this.name(), gender: this.gender()},
+    // }
+  );
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      if (result !== undefined) {
+        // this.animal.set(result);
+      }
+    });
   }
 }
