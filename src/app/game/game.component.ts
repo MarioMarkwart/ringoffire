@@ -2,10 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 import { Game } from '../../models/game';
 import { PlayerComponent } from "../player/player.component";
+import { MaterialModule } from '../shared/material.module';
 
 @Component({
   selector: 'app-game',
-  imports: [CommonModule, PlayerComponent],
+  imports: [CommonModule, PlayerComponent, MaterialModule],
   templateUrl: './game.component.html',
   styleUrl: './game.component.scss',
 })
