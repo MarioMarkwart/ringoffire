@@ -1,17 +1,12 @@
 .player-container {
+  position: absolute;
+  width: min-content;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  height: 100%;
-  position: absolute;
   right: 0;
-  height: 100%;
-  width: min-content;
-  background-color: greenyellow;
-
-  > .player-position {
-    border: 1px solid blue;
-  }
+  gap: 10px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .field {
@@ -70,7 +65,6 @@
     }
   }
 }
-
 
 .btn-add {
   position: absolute;

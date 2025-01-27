@@ -10,7 +10,7 @@ export class PlayerComponent {
 
   @Input() name: string = '';
   @Input() playerActive: boolean = false;
-  avatarNumber: number = this.getRandomInt(0, 22);
+  avatarNumber: number = this.getRandomInt(0, 21);
   getRandomInt(min: number, max: number) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
