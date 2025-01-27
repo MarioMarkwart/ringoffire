@@ -14,7 +14,7 @@ import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player
 })
 
 export class GameComponent {
-  pickCardAnimation = false;
+  pickCardAnimation:boolean = false;
   currentCard: string | undefined = '';
   game: Game;
   // oder game!: Game; // non-null assertion operator
@@ -29,6 +29,7 @@ export class GameComponent {
 
   @Output() public cardPicked = new EventEmitter<boolean>();
 
+    
   newGame() {
     this.game = new Game();
     console.log(this.game);

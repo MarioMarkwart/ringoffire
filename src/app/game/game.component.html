@@ -1,11 +1,12 @@
-@for (player of game.players; track player) {
-<app-player
-  [ngStyle]="{ 'top.px': 100 + $index * 120 }"
-  [name]="player"
-  class="player-position"
-></app-player>
-
-}
+<div class="player-container">
+  @for (player of game.players; track player; let i = $index) {
+  <app-player
+    [playerActive]="i == game.currentPlayer"
+    [name]="player"
+    class="player-position"
+  ></app-player>
+  }
+</div>
 
 <section class="field">
   <div class="card-stack">

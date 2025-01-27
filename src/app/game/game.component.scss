@@ -1,4 +1,20 @@
-section {
+.player-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  height: 100%;
+  width: min-content;
+  background-color: greenyellow;
+
+  > .player-position {
+    border: 1px solid blue;
+  }
+}
+
+.field {
   background: url("/assets/img/background-game.jpg");
   background-size: cover;
   background-position: center;
@@ -30,7 +46,7 @@ section {
     }
   }
 
-  .played-card{
+  .played-card {
     left: 20px;
     transform: scale(1) translate(250px, -250px) rotate(15deg);
   }
@@ -55,12 +71,8 @@ section {
   }
 }
 
-.player-position{
-  position: absolute;
-  right: 0;
-}
 
-.btn-add{
+.btn-add {
   position: absolute;
   bottom: 32px;
   right: 32px;
