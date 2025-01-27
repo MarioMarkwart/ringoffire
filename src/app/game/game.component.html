@@ -1,24 +1,48 @@
 @for (player of game.players; track player) {
-  <app-player [ngStyle]="{'top.px': 100 + $index * 120}" [name] = "player" class="player-position"></app-player>
-  
+<app-player
+  [ngStyle]="{ 'top.px': 100 + $index * 120 }"
+  [name]="player"
+  class="player-position"
+></app-player>
+
 }
 
 <section class="field">
   <div class="card-stack">
     <!-- card stack -->
-      @for (item of [0, 1, 2, 3]; track $index) {
-          <img [ngStyle]="{ 'left.px': $index * 5 }" src="/assets/img/cards/card_cover.png" alt="card-cover-{{ $index }}"
-          />
-        }
-    <img (click)="takeCard()" class="top-card" [ngStyle]="{'left.px': 20}" src="/assets/img/cards/card_cover.png" alt="card-cover" />
-  
+    @for (item of [0, 1, 2, 3]; track $index) {
+    <img
+      [ngStyle]="{ 'left.px': $index * 5 }"
+      src="/assets/img/cards/card_cover.png"
+      alt="card-cover-{{ $index }}"
+    />
+    }
+    <img
+      (click)="takeCard()"
+      class="top-card"
+      [ngStyle]="{ 'left.px': 20 }"
+      src="/assets/img/cards/card_cover.png"
+      alt="card-cover"
+    />
+
     <!-- stack for played cards -->
     @for ( card of game.playedCards; track card) {
-      <img src="assets/img/cards/{{ card }}.png" alt="card" class="card played-card" />
+    <img
+      src="assets/img/cards/{{ card }}.png"
+      alt="card"
+      class="card played-card"
+    />
     }
 
     <!-- current card animation -->
-    <img (click)="takeCard()" *ngIf="pickCardAnimation" class="top-card pick-card" [ngStyle]="{'left.px': 20}" src="/assets/img/cards/{{ currentCard }}.png" alt="card-cover" />
+    <img
+      (click)="takeCard()"
+      *ngIf="pickCardAnimation"
+      class="top-card pick-card"
+      [ngStyle]="{ 'left.px': 20 }"
+      src="/assets/img/cards/{{ currentCard }}.png"
+      alt="card-cover"
+    />
   </div>
 </section>
 
