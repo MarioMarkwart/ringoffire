@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { MaterialModule } from '../shared/material.module';
 
 @Component({
   selector: 'app-game-info',
-  imports: [],
+  imports: [MaterialModule],
   templateUrl: './game-info.component.html',
   styleUrl: './game-info.component.scss'
 })
