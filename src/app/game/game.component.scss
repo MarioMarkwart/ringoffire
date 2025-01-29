@@ -10,7 +10,7 @@
 }
 
 .field {
-  background: url("/assets/img/background-game.jpg");
+  background: url('./../../../public/assets/img/background-game.jpg');
   background-size: cover;
   background-position: center;
   display: flex;
