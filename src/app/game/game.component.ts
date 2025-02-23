@@ -1,11 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Output, EventEmitter, OnInit, inject } from '@angular/core';
 import { Game } from '../../models/game';
 import { PlayerComponent } from "../player/player.component";
 import { GameInfoComponent } from '../game-info/game-info.component';
 import { MaterialModule } from '../shared/material.module';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
+
+
+
 
 @Component({
   selector: 'app-game',
