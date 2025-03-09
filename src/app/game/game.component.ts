@@ -6,9 +6,7 @@ import { GameInfoComponent } from '../game-info/game-info.component';
 import { MaterialModule } from '../shared/material.module';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
-
-
-
+import { FirebaseService } from '../services/firebase.service';
 
 @Component({
   selector: 'app-game',
@@ -23,7 +21,7 @@ export class GameComponent {
   game: Game;
   // oder game!: Game; // non-null assertion operator
 
-  constructor(public dialog: MatDialog) {
+  constructor(public dialog: MatDialog, public firebaseService: FirebaseService) {
     this.game = new Game();
   }
 
