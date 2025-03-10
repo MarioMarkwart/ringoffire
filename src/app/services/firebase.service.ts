@@ -1,5 +1,6 @@
 import { Injectable, inject, OnDestroy, OnInit } from '@angular/core';
-import { Firestore, collection, doc, onSnapshot, addDoc, updateDoc, deleteDoc, query, limit, where } from '@angular/fire/firestore';
+import { Firestore, collection, doc, onSnapshot, addDoc, updateDoc, deleteDoc, query, limit, where, Unsubscribe } from '@angular/fire/firestore';
+import { Game } from '../../models/game';
 
 @Injectable({
   providedIn: 'root'
@@ -7,24 +8,54 @@ import { Firestore, collection, doc, onSnapshot, addDoc, updateDoc, deleteDoc, q
 export class FirebaseService implements OnDestroy {
 
   firestore: Firestore = inject(Firestore);
-  unsubGame!: () => void;
-  
+  unsubGamesChanges: Unsubscribe | undefined;
+
   constructor() {
-    this.subscribeToGameChanges();
   }
 
+  OnInit() {
+    this.unsubGamesChanges = this.subscribeToGameChanges();
+  }
 
-  subscribeToGameChanges(){
-    this.unsubGame = onSnapshot(collection(this.firestore, 'games'), (snapshot) => {
+  subscribeToGameChanges() {
+    return onSnapshot(collection(this.firestore, 'games'), (snapshot) => {
       snapshot.forEach((doc) => {
         console.log(doc.id, " => ", doc.data());
       });
     })
   }
 
+  subscribeToGame(gameId: string) {
+    return onSnapshot(this.getGameRef(gameId), (game) => {
+      console.log("game: ", game.id, " => ", game.data());
+    })
+  }
 
-  ngOnDestroy() { 
-    if(this.unsubGame) this.unsubGame();
+  getGameRef(gameId: string) {
+    return doc(collection(this.firestore, 'games'), gameId);
+  }
+
+  async addNewGameToFirebase(newGame: Game) {
+    try {
+      const docRef = await addDoc(collection(this.firestore, 'games'), this.getCleanJson(newGame));
+      console.log('docRef: ', docRef.id)
+    } catch (error) {
+      console.error("Error adding document: ", error);
+    }
+  }
+
+
+  ngOnDestroy() {
+    if (this.unsubGamesChanges) this.unsubGamesChanges();
+  }
+
+  getCleanJson(game: Game): { players: string[], stack: string[], playedCards: string[], currentPlayer: number } {
+    return {
+      players: game.players,
+      stack: game.stack,
+      playedCards: game.playedCards,
+      currentPlayer: game.currentPlayer
+    }
   }
 
 }

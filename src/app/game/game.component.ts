@@ -23,10 +23,13 @@ export class GameComponent {
 
   constructor(public dialog: MatDialog, public firebaseService: FirebaseService) {
     this.game = new Game();
+
   }
 
   ngOnInit(): void {
     this.newGame();
+    this.firebaseService.subscribeToGameChanges();
+    this.firebaseService.addNewGameToFirebase(new Game());
   }
 
   @Output() public cardPicked = new EventEmitter<boolean>();
