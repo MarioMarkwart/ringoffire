@@ -7,6 +7,7 @@ import { MaterialModule } from '../shared/material.module';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
 import { FirebaseService } from '../services/firebase.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-game',
@@ -21,15 +22,18 @@ export class GameComponent {
   game: Game;
   // oder game!: Game; // non-null assertion operator
 
-  constructor(public dialog: MatDialog, public firebaseService: FirebaseService) {
+  constructor(private route: ActivatedRoute,public dialog: MatDialog, public firebaseService: FirebaseService) {
     this.game = new Game();
 
   }
 
   ngOnInit(): void {
     this.newGame();
-    this.firebaseService.subscribeToGameChanges();
-    this.firebaseService.addNewGameToFirebase(new Game());
+    this.route.params.subscribe(params => {
+      this.firebaseService.subscribeToGame(params['id'])
+    })
+    // this.firebaseService.subscribeToGameChanges();
+    // this.firebaseService.addNewGameToFirebase(new Game());
   }
 
   @Output() public cardPicked = new EventEmitter<boolean>();
