@@ -1,5 +1,5 @@
 import { Injectable, inject, OnDestroy, OnInit } from '@angular/core';
-import { Firestore, collection, doc, onSnapshot, addDoc, updateDoc, deleteDoc, query, limit, where, Unsubscribe } from '@angular/fire/firestore';
+import { Firestore, collection, doc, onSnapshot, addDoc, updateDoc, deleteDoc, query, limit, where, Unsubscribe, DocumentSnapshot } from '@angular/fire/firestore';
 import { Game } from '../../models/game';
 
 @Injectable({
@@ -25,10 +25,14 @@ export class FirebaseService implements OnDestroy {
     })
   }
 
-  subscribeToGame(gameId: string) {
-    return onSnapshot(this.getGameRef(gameId), (game) => {
-      console.log("game: ", game.id, " => ", game.data());
-    })
+  // subscribeToGame(gameId: string) {
+  //   return onSnapshot(this.getGameRef(gameId), (game) => {
+  //     console.log("game: ", game.id, " => ", game.data());
+  //   })
+  // }
+  
+  subscribeToGame(gameId: string, callback: (snapshot: DocumentSnapshot<any>) => void) {
+    return onSnapshot(this.getGameRef(gameId), callback);
   }
 
   getGameRef(gameId: string) {

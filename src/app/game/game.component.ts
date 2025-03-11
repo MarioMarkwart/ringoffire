@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
 import { FirebaseService } from '../services/firebase.service';
 import { ActivatedRoute } from '@angular/router';
+import { Unsubscribe } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-game',
@@ -20,6 +21,7 @@ export class GameComponent {
   pickCardAnimation: boolean = false;
   currentCard: string | undefined = '';
   game: Game;
+  unsubscribeGame: Unsubscribe | undefined;
   // oder game!: Game; // non-null assertion operator
 
   constructor(private route: ActivatedRoute,public dialog: MatDialog, public firebaseService: FirebaseService) {
@@ -30,10 +32,20 @@ export class GameComponent {
   ngOnInit(): void {
     this.newGame();
     this.route.params.subscribe(params => {
-      this.firebaseService.subscribeToGame(params['id'])
-    })
-    // this.firebaseService.subscribeToGameChanges();
-    // this.firebaseService.addNewGameToFirebase(new Game());
+      this.unsubscribeGame = this.firebaseService.subscribeToGame(params['id'], (snapshot) => {
+        if (snapshot.exists()) {
+          const gameData = snapshot.data();
+          if (gameData) {
+            this.game.players = gameData['players'];
+            this.game.stack = gameData['stack'];
+            this.game.playedCards = gameData['playedCards'];
+            this.game.currentPlayer = gameData['currentPlayer'];
+          }
+        } else {
+          console.log('No such document!');
+        }
+      });
+    });
   }
 
   @Output() public cardPicked = new EventEmitter<boolean>();
