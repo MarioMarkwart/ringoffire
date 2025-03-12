@@ -7,7 +7,7 @@ import { MaterialModule } from '../shared/material.module';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
 import { FirebaseService } from '../services/firebase.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Unsubscribe } from '@angular/fire/firestore';
 
 @Component({
@@ -17,36 +17,40 @@ import { Unsubscribe } from '@angular/fire/firestore';
   styleUrl: './game.component.scss',
 })
 
-export class GameComponent {
+export class GameComponent implements OnInit {
   pickCardAnimation: boolean = false;
   currentCard: string | undefined = '';
   game: Game;
   unsubscribeGame: Unsubscribe | undefined;
   // oder game!: Game; // non-null assertion operator
 
-  constructor(private route: ActivatedRoute,public dialog: MatDialog, public firebaseService: FirebaseService) {
+  constructor(private route: ActivatedRoute, public dialog: MatDialog, public firebaseService: FirebaseService, private router: Router) {
     this.game = new Game();
 
   }
 
   ngOnInit(): void {
-    this.newGame();
     this.route.params.subscribe(params => {
-      this.unsubscribeGame = this.firebaseService.subscribeToGame(params['id'], (snapshot) => {
-        if (snapshot.exists()) {
-          const gameData = snapshot.data();
-          if (gameData) {
-            this.game.players = gameData['players'];
-            this.game.stack = gameData['stack'];
-            this.game.playedCards = gameData['playedCards'];
-            this.game.currentPlayer = gameData['currentPlayer'];
+      if (params['id']) {
+        this.unsubscribeGame = this.firebaseService.subscribeToGame(params['id'], (snapshot) => {
+          if (snapshot.exists()) {
+            const gameData = snapshot.data();
+            if (gameData) {
+              this.game.players = gameData['players'];
+              this.game.stack = gameData['stack'];
+              this.game.playedCards = gameData['playedCards'];
+              this.game.currentPlayer = gameData['currentPlayer'];
+            }
+          } else {
+            console.log('No such document!');
           }
-        } else {
-          console.log('No such document!');
-        }
-      });
+        });
+      } else {
+        this.newGame(); // neues Game erstellen, wenn keine ID vorhanden ist
+      }
     });
   }
+
 
   @Output() public cardPicked = new EventEmitter<boolean>();
 

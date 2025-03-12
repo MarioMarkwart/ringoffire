@@ -1,5 +1,5 @@
 import { Injectable, inject, OnDestroy, OnInit } from '@angular/core';
-import { Firestore, collection, doc, onSnapshot, addDoc, updateDoc, deleteDoc, query, limit, where, Unsubscribe, DocumentSnapshot } from '@angular/fire/firestore';
+import { Firestore, collection, doc, onSnapshot, addDoc, updateDoc, deleteDoc, query, limit, where, Unsubscribe, DocumentSnapshot, DocumentReference } from '@angular/fire/firestore';
 import { Game } from '../../models/game';
 
 @Injectable({
@@ -30,7 +30,7 @@ export class FirebaseService implements OnDestroy {
   //     console.log("game: ", game.id, " => ", game.data());
   //   })
   // }
-  
+
   subscribeToGame(gameId: string, callback: (snapshot: DocumentSnapshot<any>) => void) {
     return onSnapshot(this.getGameRef(gameId), callback);
   }
@@ -39,12 +39,14 @@ export class FirebaseService implements OnDestroy {
     return doc(collection(this.firestore, 'games'), gameId);
   }
 
-  async addNewGameToFirebase(newGame: Game) {
+  async addNewGameToFirebase(newGame: Game): Promise<string> {
     try {
-      const docRef = await addDoc(collection(this.firestore, 'games'), this.getCleanJson(newGame));
-      console.log('docRef: ', docRef.id)
+      const docRef: DocumentReference = await addDoc(collection(this.firestore, 'games'), this.getCleanJson(newGame));
+      console.log('docRef: ', docRef.id);
+      return docRef.id; // Dokument-ID zurückgeben
     } catch (error) {
       console.error("Error adding document: ", error);
+      throw error;
     }
   }
 
