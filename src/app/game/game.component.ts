@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Output, EventEmitter, OnInit, inject } from '@angular/core';
+import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 import { Game } from '../../models/game';
 import { PlayerComponent } from "../player/player.component";
 import { GameInfoComponent } from '../game-info/game-info.component';
@@ -8,7 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
 import { FirebaseService } from '../services/firebase.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Unsubscribe } from '@angular/fire/firestore';
+import { Unsubscribe, updateDoc } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-game',
@@ -21,6 +21,7 @@ export class GameComponent implements OnInit {
   pickCardAnimation: boolean = false;
   currentCard: string | undefined = '';
   game: Game;
+  gameId: string = '';
   unsubscribeGame: Unsubscribe | undefined;
   // oder game!: Game; // non-null assertion operator
 
@@ -31,7 +32,8 @@ export class GameComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      if (params['id']) {
+      this.gameId = params['id'];
+      if (this.gameId) {
         this.unsubscribeGame = this.firebaseService.subscribeToGame(params['id'], (snapshot) => {
           if (snapshot.exists()) {
             const gameData = snapshot.data();
@@ -71,6 +73,7 @@ export class GameComponent implements OnInit {
       setTimeout(() => {
         if (this.currentCard) {
           this.game.playedCards.push(this.currentCard);
+          this.saveGame();
         }
         this.pickCardAnimation = false;
       }, 1000);
@@ -83,8 +86,12 @@ export class GameComponent implements OnInit {
     dialogRef.afterClosed().subscribe((name: string) => {
       if (name) {
         this.game.players.push(name);
+        this.saveGame();
       }
     });
   }
 
+  async saveGame(){
+    await updateDoc(this.firebaseService.getGameRef(this.gameId), this.firebaseService.getCleanJson(this.game));
+  }
 }
