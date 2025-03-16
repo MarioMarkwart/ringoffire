@@ -55,12 +55,14 @@ export class FirebaseService implements OnDestroy {
     if (this.unsubGamesChanges) this.unsubGamesChanges();
   }
 
-  getCleanJson(game: Game): { players: string[], stack: string[], playedCards: string[], currentPlayer: number } {
+  getCleanJson(game: Game): { players: string[], stack: string[], playedCards: string[], currentPlayer: number, pickCardAnimation: boolean, currentCard: string | undefined } {
     return {
       players: game.players,
       stack: game.stack,
       playedCards: game.playedCards,
-      currentPlayer: game.currentPlayer
+      currentPlayer: game.currentPlayer,
+      pickCardAnimation: game.pickCardAnimation,
+      currentCard: game.currentCard
     }
   }
 

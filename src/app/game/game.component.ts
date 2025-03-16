@@ -18,8 +18,6 @@ import { Unsubscribe, updateDoc } from '@angular/fire/firestore';
 })
 
 export class GameComponent implements OnInit {
-  pickCardAnimation: boolean = false;
-  currentCard: string | undefined = '';
   game: Game;
   gameId: string = '';
   unsubscribeGame: Unsubscribe | undefined;
@@ -42,13 +40,15 @@ export class GameComponent implements OnInit {
               this.game.stack = gameData['stack'];
               this.game.playedCards = gameData['playedCards'];
               this.game.currentPlayer = gameData['currentPlayer'];
+              this.game.pickCardAnimation = gameData['pickCardAnimation'];
+              this.game.currentCard = gameData['currentCard'];
             }
           } else {
             console.log('No such document!');
           }
         });
       } else {
-        this.newGame(); // neues Game erstellen, wenn keine ID vorhanden ist
+        this.newGame();
       }
     });
   }
@@ -62,20 +62,23 @@ export class GameComponent implements OnInit {
   }
 
   takeCard() {
-    if (!this.pickCardAnimation) {
-      this.currentCard = this.game.stack.pop();
-      this.pickCardAnimation = true;
+    if (!this.game.pickCardAnimation) {
+      this.game.currentCard = this.game.stack.pop();
+      this.game.pickCardAnimation = true;
 
       setTimeout(() => {
         this.game.currentPlayer = (this.game.currentPlayer + 1) % this.game.players.length;
       }, 500)
 
+      this.saveGame();
       setTimeout(() => {
-        if (this.currentCard) {
-          this.game.playedCards.push(this.currentCard);
-          this.saveGame();
+        if (this.game.currentCard) {
+          this.game.playedCards.push(this.game.currentCard);
+          setTimeout(() => {
+            this.game.pickCardAnimation = false;
+            this.saveGame();
+          }, 100)
         }
-        this.pickCardAnimation = false;
       }, 1000);
     }
   }
@@ -91,7 +94,7 @@ export class GameComponent implements OnInit {
     });
   }
 
-  async saveGame(){
+  async saveGame() {
     await updateDoc(this.firebaseService.getGameRef(this.gameId), this.firebaseService.getCleanJson(this.game));
   }
 }
