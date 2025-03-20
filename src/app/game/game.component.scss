@@ -9,6 +9,18 @@
   transform: translateY(-50%);
 }
 
+.player-container-mobile {
+  border: 2px solid red;
+  position: absolute;
+  justify-content: space-around;
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  top: 0%;
+  display: flex;
+  overflow-x: auto;
+}
+
 .field {
   background: url("./../../../public/assets/img/background-game.jpg");
   background-size: cover;
@@ -20,7 +32,7 @@
   width: 100vw;
   max-width: 100%;
   background-color: #f5f5f5;
-  
+
   > .card-stack {
     border: 5px solid green;
     position: relative;
@@ -36,10 +48,10 @@
     }
 
     @media (max-width: 900px) {
-        transform: translateX(-250px);
+      transform: translateX(-250px);
     }
 
-    @media (max-width: 720px){
+    @media (max-width: 720px) {
       transform: translateX(-75px);
     }
   }
@@ -62,13 +74,12 @@
     animation: pickCardAnimation 1000ms ease-in-out forwards;
 
     @media (max-width: 900px) {
-     .played-card {
+      .played-card {
         left: 20px;
         transform: scale(1) translate(50px, -250px) rotate(15deg);
       }
-     }
     }
-  
+  }
 
   @keyframes pickCardAnimation {
     0% {

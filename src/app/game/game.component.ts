@@ -9,10 +9,11 @@ import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player
 import { FirebaseService } from '../services/firebase.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Unsubscribe, updateDoc } from '@angular/fire/firestore';
+import { PlayerMobileComponent } from "../player-mobile/player-mobile.component";
 
 @Component({
   selector: 'app-game',
-  imports: [CommonModule, PlayerComponent, MaterialModule, GameInfoComponent],
+  imports: [CommonModule, PlayerComponent, MaterialModule, GameInfoComponent, PlayerMobileComponent],
   templateUrl: './game.component.html',
   styleUrl: './game.component.scss',
 })
