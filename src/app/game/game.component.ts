@@ -64,6 +64,13 @@ export class GameComponent implements OnInit {
 
   takeCard() {
     if (!this.game.pickCardAnimation) {
+      if (this.game.stack.length === 0) {
+        this.game.stack = this.game.playedCards;
+        this.game.playedCards = [];
+        this.game.shuffle(this.game.stack);
+      }
+
+      console.log(this.game.stack.length, this.game.playedCards.length)
       this.game.currentCard = this.game.stack.pop();
       this.game.pickCardAnimation = true;
 

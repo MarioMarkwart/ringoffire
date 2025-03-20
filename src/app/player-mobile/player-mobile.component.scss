@@ -5,8 +5,8 @@ section {
   align-items: center;
   background-color: rgba(211, 211, 211, 0.505);
   width: 50px;
-  min-height:fit-content;
-  height: 75px;
+  min-height: fit-content;
+  height: 100px;
   padding-bottom: 10px;
   border-radius: 0 0 100px 100px;
   color: rgba(245, 245, 245, 0.5);
@@ -14,7 +14,7 @@ section {
 
   > span {
     font-size: 16px;
-    // writing-mode:  sideways-lr;
+    writing-mode: sideways-lr;
     text-align: center;
   }
 

@@ -13,29 +13,27 @@ export class Game {
             this.stack.push('diamonds_' + i);
             this.stack.push('hearts_' + i);
         }
-
-        shuffle(this.stack);
+        this.shuffle(this.stack);
     }
-}
 
+    /**
+     * https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+     * Shuffles the given array of strings in-place using the Fisher-Yates shuffle algorithm.
+     * @param array the array to shuffle
+     */
+    shuffle(array: string[]) {
+        let currentIndex = array.length;
 
-/**
- * https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
- * Shuffles the given array of strings in-place using the Fisher-Yates shuffle algorithm.
- * @param array the array to shuffle
- */
-function shuffle(array: string[]) {
-    let currentIndex = array.length;
+        // While there remain elements to shuffle...
+        while (currentIndex != 0) {
 
-    // While there remain elements to shuffle...
-    while (currentIndex != 0) {
+            // Pick a remaining element...
+            let randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex--;
 
-        // Pick a remaining element...
-        let randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex--;
-
-        // And swap it with the current element.
-        [array[currentIndex], array[randomIndex]] = [
-            array[randomIndex], array[currentIndex]];
+            // And swap it with the current element.
+            [array[currentIndex], array[randomIndex]] = [
+                array[randomIndex], array[currentIndex]];
+        }
     }
 }
