@@ -1,0 +1,36 @@
+section {
+  transition: all 0.5s ease;
+  display: flex;
+  align-items: center;
+  background-color: rgba(211, 211, 211, 0.505);
+  width: 200px;
+  border-radius: 100px 0 0 100px;
+  color: rgba(245, 245, 245, 0.5);
+  box-shadow: 0px 0px 6px 6px hsl(22.22deg 45% 23.53% / 60%);
+
+  > span {
+    font-size: 24px;
+    margin-left: 16px;
+  }
+
+  .avatar {
+    transition: all 0.5s ease;
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    border: 5px solid;
+    border-color: rgba(255, 165, 0, 0);
+  }
+}
+
+.player-active {
+  transition: all 0.5s ease;
+  background-color: orange !important;
+  color: whitesmoke;
+
+  .avatar {
+    transition: all 0.5s ease;
+    width: 70px;
+    height: 70px;
+  }
+}
