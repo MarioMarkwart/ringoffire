@@ -34,7 +34,6 @@
   background-color: #f5f5f5;
 
   > .card-stack {
-    border: 5px solid green;
     position: relative;
     display: flex;
     justify-content: center;
@@ -52,7 +51,13 @@
     }
 
     @media (max-width: 720px) {
-      transform: translateX(-75px);
+      transform: translateX(-100px);
+    }
+
+    @media (max-width: 480px) {
+      width: 120px;
+      height: 120px;
+      transform: translateX(-100px);
     }
   }
 
@@ -68,16 +73,25 @@
   .played-card {
     left: 20px;
     transform: scale(1) translate(250px, -250px) rotate(15deg);
+
+    @media (max-width: 900px) {
+      transform: scale(1) translate(200px, 0) rotate(15deg);
+    }
   }
 
   .pick-card {
     animation: pickCardAnimation 1000ms ease-in-out forwards;
+  }
 
-    @media (max-width: 900px) {
-      .played-card {
-        left: 20px;
-        transform: scale(1) translate(50px, -250px) rotate(15deg);
-      }
+  @media (max-width: 900px) {
+    .played-card {
+      left: 20px;
+      transform: scale(1) translateX(200px) rotate(15deg);
+    }
+  }
+  @media (max-width: 480px) {
+    .played-card {
+      transform: scale(1) translateX(150px) rotate(15deg);
     }
   }
 
@@ -101,6 +115,14 @@
   position: absolute;
   bottom: 32px;
   right: 32px;
+
+  @media (max-width: 768px) {
+    right: 16px;
+    bottom: 16px;
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 10px;
+  }
 }
 
 .pin-bottom {
