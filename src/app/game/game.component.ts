@@ -21,12 +21,18 @@ import { PlayerMobileComponent } from "../player-mobile/player-mobile.component"
 export class GameComponent implements OnInit {
   game: Game;
   gameId: string = '';
+  cardRotation: number = 0;
+  playedCardRotations: { [key: string]: number } = {};
   unsubscribeGame: Unsubscribe | undefined;
   // oder game!: Game; // non-null assertion operator
 
+
   constructor(private route: ActivatedRoute, public dialog: MatDialog, public firebaseService: FirebaseService, private router: Router) {
     this.game = new Game();
+  }
 
+  getRandomRotation(): number {
+    return Math.floor(Math.random() * (25 - 5 + 1)) + 5;
   }
 
   ngOnInit(): void {
@@ -63,6 +69,7 @@ export class GameComponent implements OnInit {
   }
 
   takeCard() {
+    this.cardRotation = this.getRandomRotation();
     if (!this.game.pickCardAnimation) {
       if (this.game.stack.length === 0) {
         this.game.stack = this.game.playedCards;
@@ -89,6 +96,10 @@ export class GameComponent implements OnInit {
         }
       }, 1000);
     }
+  }
+
+  cardPlayed(cardName: string) {
+    this.playedCardRotations[cardName] = this.cardRotation; // Speichert die Drehung für die gespielte Karte
   }
 
   openDialog(): void {
