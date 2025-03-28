@@ -83,18 +83,6 @@
     animation: pickCardAnimation 1000ms ease-in-out forwards;
   }
 
-  @media (max-width: 900px) {
-    .played-card {
-      left: 20px;
-      transform: scale(1) translateX(200px) rotate(15deg);
-    }
-  }
-  @media (max-width: 480px) {
-    .played-card {
-      transform: scale(1) translateX(150px) rotate(15deg);
-    }
-  }
-
   @keyframes pickCardAnimation {
     0% {
       transform: scale(1);
@@ -107,6 +95,56 @@
     }
     100% {
       transform: scale(1) translate(250px, -250px) rotate(15deg);
+    }
+  }
+
+  @media (max-width: 900px) {
+    .played-card {
+      left: 20px;
+      transform: scale(1) translateX(200px) rotate(15deg);
+    }
+    .pick-card {
+      animation: pickCardAnimation900 1000ms ease-in-out forwards;
+    }
+
+    @keyframes pickCardAnimation900 {
+      0% {
+        transform: scale(1);
+      }
+      25% {
+        transform: scale(1.5);
+      }
+      50% {
+        transform: scale(1.5);
+      }
+      100% {
+        transform: scale(1) translateX(200px) rotate(15deg);
+      }
+    }
+  }
+
+  @media (max-width: 480px) {
+    .played-card {
+      transform: scale(1) translateX(150px) rotate(15deg);
+    }
+
+    .pick-card {
+      animation: pickCardAnimation480 1000ms ease-in-out forwards;
+    }
+
+    @keyframes pickCardAnimation480 {
+      0% {
+        transform: scale(1);
+      }
+      25% {
+        transform: scale(1.5);
+      }
+      50% {
+        transform: scale(1.5);
+      }
+      100% {
+        transform: scale(1) translateX(150px) rotate(15deg);
+      }
     }
   }
 }
