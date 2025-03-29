@@ -36,8 +36,7 @@ export class FirebaseService implements OnDestroy {
   async addNewGameToFirebase(newGame: Game): Promise<string> {
     try {
       const docRef: DocumentReference = await addDoc(collection(this.firestore, 'games'), this.getCleanJson(newGame));
-      console.log('docRef: ', docRef.id);
-      return docRef.id; // Dokument-ID zurückgeben
+      return docRef.id;
     } catch (error) {
       console.error("Error adding document: ", error);
       throw error;
