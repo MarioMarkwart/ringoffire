@@ -1,10 +1,20 @@
 <section>
-  @for (picture of allImages; track picture; let i = $index){
-  <img
-    class="profile-picture"
-    [mat-dialog-close]="picture"
-    src="assets/img/avatar/{{ picture }}"
-    alt="avatar"
-  />
-  }
+  <span>Edit player:</span>
+  <div class="profile-picture-container">
+    @for (picture of allImages; track picture; let i = $index){
+    <img
+      class="profile-picture"
+      [mat-dialog-close]="picture"
+      src="assets/img/avatar/{{ picture }}"
+      alt="avatar"
+    />
+    }
+  </div>
+
+  <mat-dialog-actions>
+    <button mat-button (click)="dialogRef.close()" >Close</button>
+    <button class="warn" mat-button [mat-dialog-close]="'DELETE'" >
+      Delete player
+    </button>
+  </mat-dialog-actions>
 </section>

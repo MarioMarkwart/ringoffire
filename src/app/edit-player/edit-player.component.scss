@@ -1,26 +1,31 @@
 section {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-direction: column;
   justify-content: center;
-  height: min-content;
+  align-items: center;
   padding: 10px;
-  gap: 20px;
 
-  > img {
-    width: 100px;
-    height: 100px;
-    cursor: pointer;
-
-    &:hover {
-      filter: brightness(1.15);
-    }
-  }
-
-  @media (max-width: 720px) {
+  .profile-picture-container {
+    flex-wrap: wrap;
+    display: flex;
+    height: min-content;
+    justify-content: center;
+    gap: 20px;
+    padding-top: 10px;
     > img {
-      width: 50px;
-      height: 50px;
+      width: 100px;
+      height: 100px;
+      cursor: pointer;
+
+      &:hover {
+        filter: brightness(1.15);
+      }
+    }
+    @media (max-width: 720px) {
+      > img {
+        width: 50px;
+        height: 50px;
+      }
     }
   }
 }

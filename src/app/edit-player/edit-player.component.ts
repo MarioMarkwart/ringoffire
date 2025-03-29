@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MaterialModule } from '../shared/material.module';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-edit-player',
@@ -8,6 +9,7 @@ import { MaterialModule } from '../shared/material.module';
   styleUrl: './edit-player.component.scss'
 })
 export class EditPlayerComponent {
+  constructor(public dialogRef: MatDialogRef<EditPlayerComponent>) { };
 
   allImages = [
     'avatar_0.png',
