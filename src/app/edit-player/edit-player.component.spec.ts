@@ -10,7 +10,7 @@ describe('EditPlayerComponent', () => {
     await TestBed.configureTestingModule({
       imports: [EditPlayerComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(EditPlayerComponent);
     component = fixture.componentInstance;

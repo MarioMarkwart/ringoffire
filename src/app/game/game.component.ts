@@ -73,7 +73,6 @@ export class GameComponent implements OnInit {
         this.game.shuffle(this.game.stack);
       }
 
-      console.log(this.game.stack.length, this.game.playedCards.length)
       this.game.currentCard = this.game.stack.pop();
       this.game.pickCardAnimation = true;
 
@@ -105,7 +104,6 @@ export class GameComponent implements OnInit {
   }
 
 
-
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogAddPlayerComponent);
 
@@ -118,9 +116,11 @@ export class GameComponent implements OnInit {
     });
   }
 
+
   async saveGame() {
     await updateDoc(this.firebaseService.getGameRef(this.gameId), this.firebaseService.getCleanJson(this.game));
   }
+
 
   getRandomInt(min: number, max: number) {
     return Math.floor(Math.random() * (max - min + 1)) + min;

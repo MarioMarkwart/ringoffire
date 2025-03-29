@@ -20,10 +20,11 @@
   overflow-x: auto;
 }
 
-app-player, app-player-mobile{
+app-player,
+app-player-mobile {
   cursor: pointer;
 
-  &:hover{
+  &:hover {
     filter: brightness(1.15);
   }
 }
@@ -182,7 +183,6 @@ app-player, app-player-mobile{
     bottom: 0;
   }
 }
-
 
 /* Scrollbar */
 *::-webkit-scrollbar {

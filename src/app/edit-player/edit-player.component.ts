@@ -33,9 +33,4 @@ export class EditPlayerComponent {
     'avatar_8.png',
     'avatar_9.png'
   ]
-
-  selectPicture(picture: string) {
-    console.log(picture)
-  }
-
 }
