@@ -1,17 +1,21 @@
 <div class="player-container">
   @for (player of game.players; track player; let i = $index) {
   <app-player
+    (click)="editPlayer(i)"
     [playerActive]="i == game.currentPlayer"
     [name]="player"
+    [image]="game.playerImages[i]"
     class="player-position hide-mobile"
-  ></app-player>
+    ></app-player>
   }
 </div>
 <div class="player-container-mobile">
   @for (player of game.players; track player; let i = $index) {
-  <app-player-mobile
+    <app-player-mobile
+    (click)="editPlayer(i)"
     [playerActive]="i == game.currentPlayer"
     [name]="player"
+    [image]="game.playerImages[i]"
     class="player-position hide-desktop"
   ></app-player-mobile>
   }

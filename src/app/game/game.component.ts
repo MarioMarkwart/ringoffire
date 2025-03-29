@@ -10,6 +10,7 @@ import { FirebaseService } from '../services/firebase.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Unsubscribe, updateDoc } from '@angular/fire/firestore';
 import { PlayerMobileComponent } from "../player-mobile/player-mobile.component";
+import { EditPlayerComponent } from '../edit-player/edit-player.component';
 
 @Component({
   selector: 'app-game',
@@ -29,6 +30,7 @@ export class GameComponent implements OnInit {
 
   }
 
+
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.gameId = params['id'];
@@ -38,6 +40,7 @@ export class GameComponent implements OnInit {
             const gameData = snapshot.data();
             if (gameData) {
               this.game.players = gameData['players'];
+              this.game.playerImages = gameData['playerImages'];
               this.game.stack = gameData['stack'];
               this.game.playedCards = gameData['playedCards'];
               this.game.currentPlayer = gameData['currentPlayer'];
@@ -91,12 +94,25 @@ export class GameComponent implements OnInit {
     }
   }
 
+
+  editPlayer(playerId: number) {
+    const dialogRef = this.dialog.open(EditPlayerComponent);
+
+    dialogRef.afterClosed().subscribe((change: string) => {
+      this.game.playerImages[playerId] = change;
+      this.saveGame();
+    });
+  }
+
+
+
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogAddPlayerComponent);
 
     dialogRef.afterClosed().subscribe((name: string) => {
       if (name) {
         this.game.players.push(name);
+        this.game.playerImages.push('avatar_' + this.getRandomInt(1, 21) + '.png');
         this.saveGame();
       }
     });
@@ -105,4 +121,9 @@ export class GameComponent implements OnInit {
   async saveGame() {
     await updateDoc(this.firebaseService.getGameRef(this.gameId), this.firebaseService.getCleanJson(this.game));
   }
+
+  getRandomInt(min: number, max: number) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
 }

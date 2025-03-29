@@ -9,6 +9,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class PlayerMobileComponent {
   @Input() name: string = '';
   @Input() playerActive: boolean = false;
+  @Input() image: string = 'avatar_1.png';
   avatarNumber: number = this.getRandomInt(0, 21);
   
   getRandomInt(min: number, max: number) {

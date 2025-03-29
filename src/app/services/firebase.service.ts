@@ -25,12 +25,6 @@ export class FirebaseService implements OnDestroy {
     })
   }
 
-  // subscribeToGame(gameId: string) {
-  //   return onSnapshot(this.getGameRef(gameId), (game) => {
-  //     console.log("game: ", game.id, " => ", game.data());
-  //   })
-  // }
-
   subscribeToGame(gameId: string, callback: (snapshot: DocumentSnapshot<any>) => void) {
     return onSnapshot(this.getGameRef(gameId), callback);
   }
@@ -55,9 +49,10 @@ export class FirebaseService implements OnDestroy {
     if (this.unsubGamesChanges) this.unsubGamesChanges();
   }
 
-  getCleanJson(game: Game): { players: string[], stack: string[], playedCards: string[], currentPlayer: number, pickCardAnimation: boolean, currentCard: string | undefined } {
+  getCleanJson(game: Game): { players: string[], playerImages: string[], stack: string[], playedCards: string[], currentPlayer: number, pickCardAnimation: boolean, currentCard: string | undefined } {
     return {
       players: game.players,
+      playerImages: game.playerImages,
       stack: game.stack,
       playedCards: game.playedCards,
       currentPlayer: game.currentPlayer,
