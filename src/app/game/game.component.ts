@@ -11,6 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Unsubscribe, updateDoc } from '@angular/fire/firestore';
 import { PlayerMobileComponent } from "../player-mobile/player-mobile.component";
 import { EditPlayerComponent } from '../edit-player/edit-player.component';
+import { RandomService } from '../services/random.service';
 
 @Component({
   selector: 'app-game',
@@ -25,7 +26,7 @@ export class GameComponent implements OnInit {
   unsubscribeGame: Unsubscribe | undefined;
   // oder game!: Game; // non-null assertion operator
 
-  constructor(private route: ActivatedRoute, public dialog: MatDialog, public firebaseService: FirebaseService, private router: Router) {
+  constructor(private route: ActivatedRoute, public dialog: MatDialog, public firebaseService: FirebaseService, private router: Router, private random: RandomService) {
     this.game = new Game();
 
   }
@@ -117,7 +118,7 @@ export class GameComponent implements OnInit {
     dialogRef.afterClosed().subscribe((name: string) => {
       if (name) {
         this.game.players.push(name);
-        this.game.playerImages.push('avatar_' + this.getRandomInt(1, 21) + '.png');
+        this.game.playerImages.push('avatar_' + this.random.getRandomInt(1, 21) + '.png');
         this.saveGame();
       }
     });
@@ -127,10 +128,4 @@ export class GameComponent implements OnInit {
   async saveGame() {
     await updateDoc(this.firebaseService.getGameRef(this.gameId), this.firebaseService.getCleanJson(this.game));
   }
-
-
-  getRandomInt(min: number, max: number) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
-
 }
