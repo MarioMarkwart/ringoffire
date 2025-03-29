@@ -1,5 +1,5 @@
 import { Injectable, inject, OnDestroy, OnInit } from '@angular/core';
-import { Firestore, collection, doc, onSnapshot, addDoc, updateDoc, deleteDoc, query, limit, where, Unsubscribe, DocumentSnapshot, DocumentReference } from '@angular/fire/firestore';
+import { Firestore, collection, doc, onSnapshot, addDoc, deleteDoc, Unsubscribe, DocumentSnapshot, DocumentReference } from '@angular/fire/firestore';
 import { Game } from '../../models/game';
 
 @Injectable({
@@ -47,6 +47,7 @@ export class FirebaseService implements OnDestroy {
   ngOnDestroy() {
     if (this.unsubGamesChanges) this.unsubGamesChanges();
   }
+ 
 
   getCleanJson(game: Game): { players: string[], playerImages: string[], stack: string[], playedCards: string[], currentPlayer: number, pickCardAnimation: boolean, currentCard: string | undefined } {
     return {

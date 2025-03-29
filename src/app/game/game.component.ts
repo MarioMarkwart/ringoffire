@@ -8,7 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
 import { FirebaseService } from '../services/firebase.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Unsubscribe, updateDoc } from '@angular/fire/firestore';
+import { deleteDoc, Unsubscribe, updateDoc } from '@angular/fire/firestore';
 import { PlayerMobileComponent } from "../player-mobile/player-mobile.component";
 import { EditPlayerComponent } from '../edit-player/edit-player.component';
 import { RandomService } from '../services/random.service';
@@ -28,9 +28,7 @@ export class GameComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, public dialog: MatDialog, public firebaseService: FirebaseService, private router: Router, private random: RandomService) {
     this.game = new Game();
-
   }
-
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -127,5 +125,13 @@ export class GameComponent implements OnInit {
 
   async saveGame() {
     await updateDoc(this.firebaseService.getGameRef(this.gameId), this.firebaseService.getCleanJson(this.game));
+  }
+
+  async deleteGame(gameId: string) {
+    const confirm = window.confirm('Are you sure you want to delete the game?');
+    if (confirm) {
+      await deleteDoc(this.firebaseService.getGameRef(gameId));
+      this.router.navigate(['/'])
+    }
   }
 }
