@@ -22,6 +22,8 @@
 </div>
 
 <section class="field">
+  @if (!gameOver) {
+
   <div class="card-stack">
     <!-- card stack -->
     @for (item of [0, 1, 2, 3]; track $index) {
@@ -59,6 +61,11 @@
       alt="card-cover"
     />
   </div>
+  } @else {
+  <div class="game-over">
+    <img src="/assets/img/game-over.jpg" />
+  </div>
+  }
 </section>
 
 <app-game-info
@@ -69,6 +76,12 @@
 <button mat-fab (click)="openDialog()" class="btn-add">
   <mat-icon>add</mat-icon>
 </button>
+@if (!gameOver) {
 <button mat-mini-fab (click)="deleteGame(this.gameId)" class="delete-game">
   <mat-icon>clear</mat-icon>
 </button>
+}@else{
+<button mat-mini-fab (click)="restartGame()" class="restart-game">
+  <mat-icon>refresh</mat-icon>
+</button>
+}

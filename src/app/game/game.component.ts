@@ -24,6 +24,7 @@ export class GameComponent implements OnInit {
   game: Game;
   gameId: string = '';
   unsubscribeGame: Unsubscribe | undefined;
+  gameOver: boolean = false;
   // oder game!: Game; // non-null assertion operator
 
   constructor(private route: ActivatedRoute, public dialog: MatDialog, public firebaseService: FirebaseService, private router: Router, private random: RandomService) {
@@ -65,13 +66,10 @@ export class GameComponent implements OnInit {
   }
 
   takeCard() {
-    if (!this.game.pickCardAnimation) {
-      if (this.game.stack.length === 0) {
-        this.game.stack = this.game.playedCards;
-        this.game.playedCards = [];
-        this.game.shuffle(this.game.stack);
-      }
-
+    if (this.game.stack.length === 0) {
+      this.gameOver = true;
+    }
+    else if (!this.game.pickCardAnimation) {
       this.game.currentCard = this.game.stack.pop();
       this.game.pickCardAnimation = true;
 
@@ -90,6 +88,13 @@ export class GameComponent implements OnInit {
         }
       }, 1000);
     }
+  }
+
+  restartGame() {
+    this.game.stack = this.game.playedCards;
+    this.game.playedCards = [];
+    this.game.shuffle(this.game.stack);
+    this.gameOver = false;
   }
 
 
