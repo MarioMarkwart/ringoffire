@@ -27,8 +27,8 @@ export class GameComponent implements OnInit {
   unsubscribeGame: Unsubscribe | undefined;
   gameOver: boolean = false;
   fullUrl: string = '';
-  copied: boolean = false;
-  // oder game!: Game; // non-null assertion operator
+  showCopyMessage: boolean = false;
+  gameIsDeleted: boolean = false;
 
   constructor(private route: ActivatedRoute, public dialog: MatDialog, public firebaseService: FirebaseService, private router: Router, private random: RandomService) {
     this.game = new Game();
@@ -51,7 +51,7 @@ export class GameComponent implements OnInit {
               this.game.currentCard = gameData['currentCard'];
             }
           } else {
-            window.alert("This Game-Id doesn't exist.")
+            if (!this.gameIsDeleted) window.alert("This Game-Id doesn't exist.")
             this.router.navigate(['/'])
           }
         });
@@ -64,7 +64,6 @@ export class GameComponent implements OnInit {
 
 
   @Output() public cardPicked = new EventEmitter<boolean>();
-
 
   newGame() {
     this.game = new Game();
@@ -140,12 +139,11 @@ export class GameComponent implements OnInit {
   async deleteGame(gameId: string) {
     const confirm = window.confirm('Are you sure you want to delete the game?');
     if (confirm) {
+      this.gameIsDeleted = true;
       await deleteDoc(this.firebaseService.getGameRef(gameId));
       this.router.navigate(['/'])
     }
   }
-
-  showCopyMessage = false;
 
   copyUrl() {
     this.showCopyMessage = true;
