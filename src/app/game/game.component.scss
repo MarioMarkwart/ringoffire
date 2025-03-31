@@ -183,6 +183,7 @@ app-player-mobile {
     bottom: 0;
   }
 }
+
 .restart-game,
 .delete-game {
   position: absolute;
@@ -191,10 +192,40 @@ app-player-mobile {
   cursor: pointer;
 }
 
+.content_copy {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  cursor: pointer;
+  font-size: 8px;
+}
+
+.copy-message {
+  position: absolute;
+  // top: 60px; /* Anpassen, um die Meldung unterhalb des Buttons zu positionieren */
+  bottom: 150px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 10px 15px;
+  border-radius: 10px;
+  opacity: 0;
+  animation: fade-in-out 2s ease-in-out forwards;
+  text-align: center;
+}
+
+@keyframes fade-in-out {
+  0%, 100% { opacity: 0; }
+  10%, 90% { opacity: 1; }
+}
+
 .game-over {
   border-radius: 20px;
   width: 70vw;
-  
+
   img {
     border-radius: 20px;
     width: 100%;

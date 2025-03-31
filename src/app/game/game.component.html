@@ -85,3 +85,13 @@
   <mat-icon>refresh</mat-icon>
 </button>
 }
+@if (game.players.length == 1){
+  @if (game.players.length == 1) {
+    <button mat-mini-fab class="content_copy" [cdkCopyToClipboard]="fullUrl" (click)="copyUrl()">
+      <span>Copy URL</span> <mat-icon>content_copy</mat-icon>
+    </button>
+  }
+  <div *ngIf="showCopyMessage" class="copy-message">
+    URL copied to clipboard!
+  </div>
+}

@@ -12,10 +12,11 @@ import { deleteDoc, Unsubscribe, updateDoc } from '@angular/fire/firestore';
 import { PlayerMobileComponent } from "../player-mobile/player-mobile.component";
 import { EditPlayerComponent } from '../edit-player/edit-player.component';
 import { RandomService } from '../services/random.service';
+import { ClipboardModule } from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'app-game',
-  imports: [CommonModule, PlayerComponent, MaterialModule, GameInfoComponent, PlayerMobileComponent],
+  imports: [CommonModule, PlayerComponent, MaterialModule, GameInfoComponent, PlayerMobileComponent, ClipboardModule],
   templateUrl: './game.component.html',
   styleUrl: './game.component.scss',
 })
@@ -25,6 +26,8 @@ export class GameComponent implements OnInit {
   gameId: string = '';
   unsubscribeGame: Unsubscribe | undefined;
   gameOver: boolean = false;
+  fullUrl: string = '';
+  copied: boolean = false;
   // oder game!: Game; // non-null assertion operator
 
   constructor(private route: ActivatedRoute, public dialog: MatDialog, public firebaseService: FirebaseService, private router: Router, private random: RandomService) {
@@ -56,6 +59,7 @@ export class GameComponent implements OnInit {
         this.newGame();
       }
     });
+    this.fullUrl = window.location.href;
   }
 
 
@@ -139,5 +143,14 @@ export class GameComponent implements OnInit {
       await deleteDoc(this.firebaseService.getGameRef(gameId));
       this.router.navigate(['/'])
     }
+  }
+
+  showCopyMessage = false;
+
+  copyUrl() {
+    this.showCopyMessage = true;
+    setTimeout(() => {
+      this.showCopyMessage = false;
+    }, 2000);
   }
 }
