@@ -48,7 +48,8 @@ export class GameComponent implements OnInit {
               this.game.currentCard = gameData['currentCard'];
             }
           } else {
-            console.log('No such document!');
+            window.alert("This Game-Id doesn't exist.")
+            this.router.navigate(['/'])
           }
         });
       } else {
