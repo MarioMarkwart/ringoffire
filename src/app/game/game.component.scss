@@ -233,6 +233,11 @@ app-player-mobile {
   }
 }
 
+.preload-image {
+  display: none;
+  opacity: 0;
+}
+
 /* Scrollbar */
 *::-webkit-scrollbar {
   height: 4px;
