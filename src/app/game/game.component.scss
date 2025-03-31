@@ -158,7 +158,7 @@ app-player-mobile {
 }
 
 .btn-add {
-  position: absolute;
+  position: fixed;
   bottom: 32px;
   right: 32px;
 
@@ -172,7 +172,7 @@ app-player-mobile {
 }
 
 .pin-bottom {
-  position: absolute;
+  position: fixed;
   bottom: 32px;
   left: 100px;
   right: 100px;

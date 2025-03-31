@@ -1,6 +1,6 @@
 export class Game {
-    public players: string[] = ['JD'];
-    public playerImages: string[] = ['avatar_1.png'];
+    public players: string[] = [];
+    public playerImages: string[] = [];
     public stack: string[] = [];
     public playedCards: string[] = [];
     public currentPlayer: number = 0;
